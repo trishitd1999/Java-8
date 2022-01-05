@@ -1,0 +1,31 @@
+till java 1.7, we can only declare methods in interfaces, but in java 1.8, we can define methods in interfaces also. so default methods we can use also in 1.8
+Also static methods we can use in functional interfaces.
+
+why java 8 introduced default methods??
+-> when an interface has one or more implementations, now if we add a new method to the interface, then all of it's implementations will be forced to implement them too. 
+so the code will break down, that's why this solution is the best solution
+in this way we can add new methods also in the interface and the implemented classes will automatically have them too.
+
+as we know, Java allows a class to implement multiple interfaces.
+what happen if a class which implements 2 interfaces, now both the interfaces will have same default methods:
+example:
+
+public interface Vehicle{
+   default String turnAlarmOn() {
+        return "Turning the vehicle alarm on.";
+    }
+}
+
+public interface Alarm{
+   default String turnAlarmOn() {
+        return "Turning the alarm on.";
+    }
+}
+
+public class A implements Vehicle, Alarm{
+  
+}
+here the code will not compile, as there will be conflicts caused by multiple interfaces inheritance.
+to provide ambiguity, we have to do own implementations of those methods in the class. 
+or we can use interface_name.super.method_name;
+example - Vehicle.super.turnAlarmOn(); -> in the class.
